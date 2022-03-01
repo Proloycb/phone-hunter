@@ -17,11 +17,17 @@ const loadData = () => {
     }
 }
 
+// error message show
+
+ const errorMessage = document.getElementById('error-show').style.display = 'none';
+
+
 const displayResult = phones => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     if(phones.length == 0){
-        return alert('No Phone found');
+        const errorMessage = document.getElementById('error-show');
+        errorMessage.style.display ='block';
     }
     phones.forEach (phone => {
         const div = document.createElement('div');
@@ -58,10 +64,10 @@ const displayDetailResult = phone => {
         <div class="card-body">
             <h5 class="card-title">${phone.name}</h5>
             <p class="card-text">${phone.brand}</p>
-            <p class="card-text"><strong>ReleaseDate: </strong>${phone?.releaseDate}</p>
+            <p class="card-text"><strong>ReleaseDate: </strong>${phone?.releaseDate||'releasedate upcoming'}</p>
             <p class="card-text"><strong>storage: </strong>${phone.mainFeatures.storage}, <strong>displaySize: </strong>${phone.mainFeatures.displaySize},<strong> chipSet: </strong>${phone.mainFeatures.chipSet},<strong> memory: </strong>${phone.mainFeatures.memory}</p>
             <p class="card-text"><strong>Sensors: </strong>${phone.mainFeatures.sensors}</p>
-            <p class="card-text"><strong>WLAN: </strong>${phone?.others?.WLAN}, <strong>Bluetooth: </strong>${phone?.others?.Bluetooth},<strong>GPS: </strong> ${phone?.others?.GPS},<strong> NFC: </strong>${phone?.others?.NFC},<strong> Radio: </strong>${phone?.others?.Radio},<strong> USB: </strong>${phone?.others?.USB}</p>
+            <p class="card-text"><strong>WLAN: </strong>${phone?.others?.WLAN|| 'no data found!'}, <strong>Bluetooth: </strong>${phone?.others?.Bluetooth|| 'no data found!'},<strong>GPS: </strong> ${phone?.others?.GPS|| 'no data found!'},<strong> NFC: </strong>${phone?.others?.NFC|| 'no data found!'},<strong> Radio: </strong>${phone?.others?.Radio|| 'no data found!'},<strong> USB: </strong>${phone?.others?.USB|| 'no data found!'}</p>
         </div>
     `;
     searchDetails.appendChild(div);

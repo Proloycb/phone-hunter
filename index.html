@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Stalker</title>
+    <title>Mobile Mart</title>
     <!-- bootstrap link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
     <section class="container-xxl">
-        <h2 class="text-center text-success mb-3">Welcome to Mobile Stalker</h2>
+        <h2 class="text-center text-success mb-3">Welcome to Mobile Mart</h2>
         <!-- search field -->
         <div class="input-group mb-3 w-50 mx-auto">
             <input id="search-field" type="text" class="form-control" placeholder="Search your phone" aria-label="Search your phone" aria-describedby="button-addon2">
             <button onclick="loadData()" class="btn btn-outline-secondary" type="button" id="button-search">Search</button>
+        </div>
+        <!-- error message -->
+        <div id="error-show">
+            <p class="text-center fw-bold ">No phone found!. Enter a valid phone name</p>
         </div>
         <!-- detail result -->
         <div id="search-detail" class="w-50 mx-auto text-center mb-5">
