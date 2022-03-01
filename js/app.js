@@ -3,10 +3,18 @@ const loadData = () => {
     const searchText = searchField.value ;
     // clear the value
     searchField.value = '';
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+    if(searchText == ''){
+        return alert('please add something');
+    }
+    else{
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     fetch(url)
     .then(res => res.json())
-    .then(phone => displayResult(phone.data));
+    .then(phone => displayResult(phone.data.slice(0, 20)));
+    // document.getElementById('show-more').addEventListener(click, function(){
+    //     displayResult(phone.data.slice(21));
+    // })
+    }
 }
 
 const displayResult = phones => {
@@ -53,7 +61,7 @@ const displayDetailResult = phone => {
             <p class="card-text"><strong>ReleaseDate: </strong>${phone?.releaseDate}</p>
             <p class="card-text"><strong>storage: </strong>${phone.mainFeatures.storage}, <strong>displaySize: </strong>${phone.mainFeatures.displaySize},<strong> chipSet: </strong>${phone.mainFeatures.chipSet},<strong> memory: </strong>${phone.mainFeatures.memory}</p>
             <p class="card-text"><strong>Sensors: </strong>${phone.mainFeatures.sensors}</p>
-            <p class="card-text"><strong>WLAN: </strong>${phone.mainFeatures?.others?.WLAN}, <strong>Bluetooth: </strong>${phone.mainFeatures?.others?.Bluetooth},<strong>GPS: </strong> ${phone.mainFeatures?.others?.GPS},<strong> NFC: </strong>${phone.mainFeatures?.others?.NFC},<strong> Radio: </strong>${phone.mainFeatures?.others?.Radio},<strong> USB: </strong>${phone.mainFeatures?.others?.USB}</p>
+            <p class="card-text"><strong>WLAN: </strong>${phone?.others?.WLAN}, <strong>Bluetooth: </strong>${phone?.others?.Bluetooth},<strong>GPS: </strong> ${phone?.others?.GPS},<strong> NFC: </strong>${phone?.others?.NFC},<strong> Radio: </strong>${phone?.others?.Radio},<strong> USB: </strong>${phone?.others?.USB}</p>
         </div>
     `;
     searchDetails.appendChild(div);
