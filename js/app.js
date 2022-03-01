@@ -20,7 +20,7 @@ const displayResult = phones => {
         div.classList.add('col');
         div.innerHTML = `
         <div class="card h-100">
-            <img src="${phone.image}" class="card-img-top" alt="...">
+            <img src="${phone.image}" class="card-img-top w-75 mx-auto" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${phone.phone_name}</h5>
                 <p class="card-text">${phone.brand}</p>
@@ -37,5 +37,24 @@ const loadPhoneDetails = slug => {
     const url = `https://openapi.programming-hero.com/api/phone/${slug}`;
     fetch(url)
     .then(res => res.json())
-    .then(phone => console.log(phone.data));
+    .then(phone => displayDetailResult(phone.data));
+}
+
+const displayDetailResult = phone => {
+    const searchDetails = document.getElementById('search-detail');
+    searchDetails.textContent='';
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.innerHTML = `
+        <img src="${phone.image}" class="card-img-top w-50 mx-auto" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">${phone.name}</h5>
+            <p class="card-text">${phone.brand}</p>
+            <p class="card-text"><strong>ReleaseDate: </strong>${phone?.releaseDate}</p>
+            <p class="card-text"><strong>storage: </strong>${phone.mainFeatures.storage}, <strong>displaySize: </strong>${phone.mainFeatures.displaySize},<strong> chipSet: </strong>${phone.mainFeatures.chipSet},<strong> memory: </strong>${phone.mainFeatures.memory}</p>
+            <p class="card-text"><strong>Sensors: </strong>${phone.mainFeatures.sensors}</p>
+            <p class="card-text"><strong>WLAN: </strong>${phone.mainFeatures?.others?.WLAN}, <strong>Bluetooth: </strong>${phone.mainFeatures?.others?.Bluetooth},<strong>GPS: </strong> ${phone.mainFeatures?.others?.GPS},<strong> NFC: </strong>${phone.mainFeatures?.others?.NFC},<strong> Radio: </strong>${phone.mainFeatures?.others?.Radio},<strong> USB: </strong>${phone.mainFeatures?.others?.USB}</p>
+        </div>
+    `;
+    searchDetails.appendChild(div);
 }
