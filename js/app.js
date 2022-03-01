@@ -8,10 +8,10 @@ const toggleSearchDetail = displayStyle => {
     document.getElementById('search-detail').style.display = displayStyle;
 }
 // show all 
-// const showAllButton = displayStyle => {
-//     document.getElementById('show-all').style.display = displayStyle;
-// }
-// showAllButton('none');
+const showAllButton = displayStyle => {
+    document.getElementById('show-all').style.display = displayStyle;
+}
+showAllButton('none');
 const loadData = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value ;
@@ -20,19 +20,19 @@ const loadData = () => {
     toggleSpinner('block');
     toggleSearchDetail('none');
     if(searchText == ''){
+        toggleSpinner('none');
         return alert('please add something');
     }
     else{
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-    fetch(url)
-    .then(res => res.json())
-    .then(phone => displayResult(phone.data.slice(0, 20)));
-    // document.getElementById('show-more').innerHTML = `
-    //     <button onclick = "${displayResult(phone.data)}" class="btn btn-info text-white">Show All</button> 
-    // `;
-    
-
-   
+        fetch(url)
+        .then(res => res.json())
+        .then(phone => {
+            displayResult(phone.data.slice(0, 20));
+            document.getElementById('show-all').addEventListener('click', function(){
+                displayResult(phone.data);
+            });
+        });
     }
 }
 
@@ -40,6 +40,7 @@ const loadData = () => {
 
 const errorMessage = document.getElementById('error-show').style.display = 'none';
 
+// display result
 const displayResult = phones => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
@@ -61,10 +62,12 @@ const displayResult = phones => {
         </div>
         `;
         searchResult.appendChild(div);
-    })
+        showAllButton('block');
+    });
     toggleSpinner('none');
-    showAllButton('block');
 }
+
+// load details
 const loadPhoneDetails = phoneId => {
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
     fetch(url)
@@ -72,6 +75,7 @@ const loadPhoneDetails = phoneId => {
     .then(phone => displayDetailResult(phone.data));
 }
 
+// detail result
 const displayDetailResult = phone => {
     const searchDetails = document.getElementById('search-detail');
     searchDetails.textContent='';
