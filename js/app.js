@@ -38,32 +38,36 @@ const loadData = () => {
 
 // error message show
 
-const errorMessage = document.getElementById('error-show').style.display = 'none';
-
+const errorMessage = displayStyle => {
+    document.getElementById('error-show').style.display = displayStyle;
+}
+errorMessage('none');
 // display result
 const displayResult = phones => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     if(phones.length == 0){
-        const errorMessage = document.getElementById('error-show');
-        errorMessage.style.display ='block';
+        errorMessage ('block');
     }
-    phones.forEach (phone => {
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
-        <div class="card h-100">
-            <img src="${phone.image}" class="card-img-top w-75 mx-auto" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">${phone.phone_name}</h5>
-                <p class="card-text">${phone.brand}</p>
-                <button onclick = "loadPhoneDetails('${phone.slug}')" type="button" class="btn btn-info text-white">Detail Explore</button>
+    else{
+        phones.forEach (phone => {
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
+            <div class="card h-100">
+                <img src="${phone.image}" class="card-img-top w-75 mx-auto" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${phone.phone_name}</h5>
+                    <p class="card-text">${phone.brand}</p>
+                    <button onclick = "loadPhoneDetails('${phone.slug}')" type="button" class="btn btn-info text-white">Detail Explore</button>
+                </div>
             </div>
-        </div>
-        `;
-        searchResult.appendChild(div);
-        showAllButton('block');
-    });
+            `;
+            searchResult.appendChild(div);
+            errorMessage('none');
+            showAllButton('block');
+        });
+    }
     toggleSpinner('none');
 }
 
